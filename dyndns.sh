@@ -5,12 +5,6 @@ LOGFILE="/var/log/dyndns-ip_change.log"
 IPCKA="$(curl -s http://ipecho.net/plain)"
 LASTIP=$(dig +noall +answer $DOMAIN |awk '{print $5}')
 
-# Initial IP check
-if [[ -d $STATEFILE ]]; then 
-	echo "Your current IP is $IPCKA"
-	echo "$(date) - initial ip - $IPCKA" >>  $LOGFILE
-fi
-
 # Change IP if not equal to last/initial ip
 if [[ $LASTIP != $IPCKA ]] ;then
 	echo "Public IP changed from $LASTIP to $IPCKA ."
